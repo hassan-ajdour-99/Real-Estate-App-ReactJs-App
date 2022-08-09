@@ -5,11 +5,14 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibility from "../assets/svg/visibilityIcon.svg";
 import "../../src/index.css";
+import OAuth from "../components/OAuth";
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -56,10 +59,10 @@ function SignUp() {
       formDataCopy.timestamp = serverTimestamp();
 
       await setDoc(doc(db, "users", user.uid), formDataCopy);
-
+      toast.success("User Registred Successfuly");
       navigate("/sign-in");
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong on registration");
     }
   };
 
@@ -114,6 +117,10 @@ function SignUp() {
         </form>
 
         {/* GOOGLE AUTH */}
+        <OAuth></OAuth>
+
+        {/*  */}
+
         <Link to="/sign-up" className="registerLink">
           Sign-Up With Google Account?
         </Link>

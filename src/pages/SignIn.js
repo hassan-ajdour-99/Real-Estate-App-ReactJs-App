@@ -1,9 +1,12 @@
 import { Fragment, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibility from "../assets/svg/visibilityIcon.svg";
 import "../../src/index.css";
+import OAuth from "../components/OAuth";
 
 function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,12 +39,13 @@ function SignIn() {
       );
 
       if (useCredentials.user) {
+        toast.success("User Logged successfully");
         navigate("/profile");
       } else {
         console.log("password or email is not correct");
       }
     } catch (error) {
-      console.log(error);
+      toast.error("bad user credentials");
     }
   }
 
@@ -88,6 +92,9 @@ function SignIn() {
         </form>
 
         {/* GOOGLE AUTH */}
+        {/* Google Authentication Button */}
+        <OAuth />
+
         <Link to="/sign-up" className="registerLink">
           Sign-up Instead
         </Link>
