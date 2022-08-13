@@ -37,7 +37,7 @@ function Navbar() {
               onClick={() => navigate("/offers")}
             />
             <p style={{ color: pathMathRoute("/offers") ? "#2c2c" : "#111" }}>
-              Offer
+              Offers
             </p>
           </li>
           <li className="navbarListItem">
